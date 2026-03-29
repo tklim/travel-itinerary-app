@@ -1,0 +1,71 @@
+import { addMinutes, differenceInCalendarDays, format, isSameDay } from "date-fns";
+import { formatInTimeZone, fromZonedTime, toZonedTime } from "date-fns-tz";
+
+const parseLocalDateTimeParts = (value: string) => {
+  const match =
+    /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})T(?<hour>\d{2}):(?<minute>\d{2})$/.exec(
+      value
+    );
+
+  if (!match?.groups) {
+    throw new RangeError(`Invalid local datetime: ${value}`);
+  }
+
+  return {
+    year: Number(match.groups.year),
+    month: Number(match.groups.month),
+    day: Number(match.groups.day),
+    hour: Number(match.groups.hour),
+    minute: Number(match.groups.minute)
+  };
+};
+
+export const parseLocalDateTime = (value: string, timezone: string) => {
+  const { year, month, day, hour, minute } = parseLocalDateTimeParts(value);
+
+  return fromZonedTime(new Date(year, month - 1, day, hour, minute), timezone);
+};
+
+export const toDatetimeLocalValue = (date: Date, timezone: string) =>
+  formatInTimeZone(date, timezone, "yyyy-MM-dd'T'HH:mm");
+
+export const formatDateTime = (
+  date: Date,
+  timezone: string,
+  pattern = "EEE d MMM, h:mm a"
+) => formatInTimeZone(date, timezone, pattern);
+
+export const formatShortTime = (date: Date, timezone: string) =>
+  formatInTimeZone(date, timezone, "h:mm a");
+
+export const formatDateLabel = (date: Date, timezone: string) =>
+  formatInTimeZone(date, timezone, "EEEE d MMMM");
+
+export const zonedDayKey = (date: Date, timezone: string) =>
+  formatInTimeZone(date, timezone, "yyyy-MM-dd");
+
+export const formatRelativeDayLabel = (
+  date: Date,
+  timezone: string,
+  now = new Date()
+) => {
+  const zonedDate = toZonedTime(date, timezone);
+  const zonedNow = toZonedTime(now, timezone);
+
+  if (isSameDay(zonedDate, zonedNow)) {
+    return "Today";
+  }
+
+  const daysDiff = differenceInCalendarDays(zonedDate, zonedNow);
+  if (daysDiff === 1) {
+    return "Tomorrow";
+  }
+
+  if (daysDiff === -1) {
+    return "Yesterday";
+  }
+
+  return format(zonedDate, "EEE d MMM");
+};
+
+export const addLeadMinutes = (date: Date, minutes: number) => addMinutes(date, -minutes);

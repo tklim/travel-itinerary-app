@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Trip {
+  id                         String        @id @default(cuid())
+  slug                       String        @unique
+  name                       String
+  travelerCount              Int?
+  homeTimezone               String
+  publishedVersion           Int           @default(1)
+  draftVersion               Int           @default(2)
+  defaultAirportLeadMinutes  Int           @default(180)
+  defaultWakeMinutes         Int           @default(90)
+  tripStartAt                DateTime
+  tripEndAt                  DateTime
+  notes                      String?
+  createdAt                  DateTime      @default(now())
+  updatedAt                  DateTime      @updatedAt
+  flights                    Flight[]
+  stays                      Stay[]
+  events                     Event[]
+  importBatches              ImportBatch[]
+}
+
+model Flight {
+  id                        String   @id @default(cuid())
+  logicalId                 String
+  sourceKey                 String?
+  tripId                     String
+  version                   Int
+  airline                   String
+  flightNumber              String
+  originCode                String
+  originName                String
+  originTimezone            String
+  destinationCode           String
+  destinationName           String
+  destinationTimezone       String
+  departAt                  DateTime
+  arriveAt                  DateTime
+  terminal                  String?
+  confirmationCode          String?
+  airportLeadMinutes        Int?
+  wakeLeadMinutes           Int?
+  notes                     String?
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+  trip                      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@index([tripId, version, departAt])
+  @@index([tripId, version, sourceKey])
+  @@unique([tripId, version, logicalId])
+}
+
+model Stay {
+  id                        String   @id @default(cuid())
+  logicalId                 String
+  sourceKey                 String?
+  tripId                     String
+  version                   Int
+  name                      String
+  city                      String
+  country                   String
+  timezone                  String
+  address                   String
+  phone                     String?
+  mapUrl                    String?
+  checkInAt                 DateTime
+  checkOutAt                DateTime
+  confirmationCode          String?
+  notes                     String?
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+  trip                      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@index([tripId, version, checkInAt])
+  @@index([tripId, version, sourceKey])
+  @@unique([tripId, version, logicalId])
+}
+
+model Event {
+  id                        String   @id @default(cuid())
+  logicalId                 String
+  sourceKey                 String?
+  tripId                     String
+  version                   Int
+  title                     String
+  category                  String
+  timezone                  String
+  location                  String?
+  startAt                   DateTime
+  endAt                     DateTime?
+  requiredArrivalAt         DateTime?
+  requiredLeadMinutes       Int?
+  wakeLeadMinutes           Int?
+  notes                     String?
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+  trip                      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@index([tripId, version, startAt])
+  @@index([tripId, version, sourceKey])
+  @@unique([tripId, version, logicalId])
+}
+
+model ImportBatch {
+  id             String   @id @default(cuid())
+  tripId         String
+  version        Int
+  filename       String
+  status         String
+  summaryJson    String
+  createdAt      DateTime @default(now())
+  trip           Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@index([tripId, createdAt])
+}

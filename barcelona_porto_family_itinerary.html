@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barcelona & Porto Family Itinerary — May/Jun 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: #f5f4f0;
+    color: #1a1a18;
+    padding: 2rem 1rem;
+    line-height: 1.6;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #1a1a18;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #73726c;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+  .stat {
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+    border: 0.5px solid rgba(0,0,0,0.1);
+  }
+  .stat-val { font-size: 20px; font-weight: 500; color: #1a1a18; }
+  .stat-label { font-size: 11px; color: #73726c; margin-top: 2px; }
+
+  .city-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid rgba(0,0,0,0.15);
+  }
+  .city-badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+  .badge-bcn { background: #E6F1FB; color: #0C447C; }
+  .badge-opo { background: #EAF3DE; color: #27500A; }
+  .city-title { font-size: 17px; font-weight: 500; }
+  .city-dates { font-size: 12px; color: #73726c; margin-left: auto; }
+
+  .day-card {
+    background: #fff;
+    border: 0.5px solid rgba(0,0,0,0.1);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .day-card:hover { border-color: rgba(0,0,0,0.25); }
+  .day-card.open { border-color: rgba(0,0,0,0.35); }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+  .day-num { font-size: 11px; font-weight: 500; color: #73726c; min-width: 54px; }
+  .day-title { font-size: 14px; font-weight: 500; color: #1a1a18; flex: 1; }
+  .day-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+  .tag {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .tag-food     { background: #FAEEDA; color: #633806; }
+  .tag-culture  { background: #E6F1FB; color: #0C447C; }
+  .tag-outdoor  { background: #EAF3DE; color: #27500A; }
+  .tag-shop     { background: #FBEAF0; color: #72243E; }
+  .tag-wine     { background: #EEEDFE; color: #3C3489; }
+  .tag-transit  { background: #F1EFE8; color: #5F5E5A; }
+
+  .chevron { font-size: 12px; color: #aaa; transition: transform 0.2s; }
+  .day-card.open .chevron { transform: rotate(180deg); }
+
+  .day-body {
+    display: none;
+    padding: 0 16px 14px;
+    border-top: 0.5px solid rgba(0,0,0,0.08);
+  }
+  .day-card.open .day-body { display: block; }
+
+  .timeline { margin-top: 12px; }
+  .slot { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .slot-time {
+    font-size: 11px;
+    color: #aaa;
+    min-width: 52px;
+    padding-top: 2px;
+    font-weight: 500;
+  }
+  .slot-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .dot-morning   { background: #EF9F27; }
+  .dot-afternoon { background: #1D9E75; }
+  .dot-evening   { background: #534AB7; }
+  .dot-transit   { background: #888780; }
+
+  .slot-content { flex: 1; }
+  .slot-name { font-size: 13px; font-weight: 500; color: #1a1a18; line-height: 1.4; }
+  .slot-desc { font-size: 12px; color: #5F5E5A; margin-top: 2px; line-height: 1.5; }
+
+  .tip-box {
+    margin-top: 12px;
+    padding: 8px 10px;
+    background: #FAEEDA;
+    border-radius: 8px;
+    border-left: 2px solid #EF9F27;
+  }
+  .tip-box p { font-size: 11px; color: #633806; line-height: 1.5; }
+
+  @media (max-width: 500px) {
+    .day-tags { display: none; }
+    .summary-strip { grid-template-columns: repeat(3,1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Barcelona &amp; Porto — Family Itinerary</h1>
+<p class="subtitle">29 May – 5 June 2026 &nbsp;·&nbsp; 5 adults &nbsp;·&nbsp; Mid-range budget</p>
+
+<div class="summary-strip">
+  <div class="stat"><div class="stat-val">8</div><div class="stat-label">nights total</div></div>
+  <div class="stat"><div class="stat-val">2</div><div class="stat-label">cities</div></div>
+  <div class="stat"><div class="stat-val">5</div><div class="stat-label">adults</div></div>
+</div>
+
+<!-- BARCELONA -->
+<div class="city-header">
+  <span class="city-badge badge-bcn">BARCELONA</span>
+  <span class="city-title">Spain</span>
+  <span class="city-dates">29 May – 1 Jun</span>
+</div>
+
+<!-- Day 1 -->
+<div class="day-card" onclick="toggle(this)">
+  <div class="day-header">
+    <span class="day-num">Fri 29 May</span>
+    <span class="day-title">✈ Arrival + Gothic Quarter</span>
+    <div class="day-tags"><span class="tag tag-food">Food</span><span class="tag tag-culture">Culture</span></div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="slot"><span class="slot-time">08:00</span><span class="slot-dot dot-transit"></span><div class="slot-content"><div class="slot-name">Arrive El Prat Airport (BCN)</div><div class="slot-desc">Take the Aerobus (€6.75/person) to Plaça Catalunya — fastest, no stops. Drop bags at hotel/apartment.</div></div></div>
+      <div class="slot"><span class="slot-time">10:30</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">La Boqueria Market</div><div class="slot-desc">Barcelona's iconic covered market on Las Ramblas. Grab fresh fruit, jamón, local olives and a quick market breakfast. Arrive early before crowds peak.</div></div></div>
+      <div class="slot"><span class="slot-time">12:00</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Gothic Quarter (Barri Gòtic) stroll</div><div class="slot-desc">Wander the medieval labyrinth — Plaça Reial, Barcelona Cathedral, Pont del Bisbe. Free and unmissable.</div></div></div>
+      <div class="slot"><span class="slot-time">14:00</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Lunch at El Xampanyet</div><div class="slot-desc">Classic cava bar in El Born. Order the house cava, patatas bravas, croquetas and pa amb tomàquet. Budget ~€20–25pp.</div></div></div>
+      <div class="slot"><span class="slot-time">16:00</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">El Born & Picasso Museum</div><div class="slot-desc">Explore the trendy El Born district. Visit Picasso Museum (book online in advance, ~€15pp) or browse the boutique shops nearby.</div></div></div>
+      <div class="slot"><span class="slot-time">19:30</span><span class="slot-dot dot-evening"></span><div class="slot-content"><div class="slot-name">Barceloneta Beach sunset + tapas dinner</div><div class="slot-desc">Walk to the beach for golden hour. Dinner at La Cova Fumada (locals-only spot, cash only) or Bar Electricitat for grilled seafood and vermouth.</div></div></div>
+    </div>
+    <div class="tip-box"><p>💡 Book Picasso Museum and Sagrada Família tickets online before you travel — they sell out weeks in advance, especially in late May/June.</p></div>
+  </div>
+</div>
+
+<!-- Day 2 -->
+<div class="day-card" onclick="toggle(this)">
+  <div class="day-header">
+    <span class="day-num">Sat 30 May</span>
+    <span class="day-title">🏛 Gaudí Day — Sagrada Família + Park Güell</span>
+    <div class="day-tags"><span class="tag tag-culture">Culture</span><span class="tag tag-outdoor">Outdoor</span></div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="slot"><span class="slot-time">08:30</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Sagrada Família (first entry)</div><div class="slot-desc">Book the earliest slot — the morning light through the stained glass on the Nativity facade is extraordinary. Guided tour + tower access recommended (~€36pp). Allow 2 hours.</div></div></div>
+      <div class="slot"><span class="slot-time">11:30</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Recinte Modernista de Sant Pau</div><div class="slot-desc">A UNESCO-listed art nouveau hospital 5 min walk from Sagrada Família — stunning architecture with far fewer crowds. ~€16pp.</div></div></div>
+      <div class="slot"><span class="slot-time">13:30</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Lunch in Gràcia neighbourhood</div><div class="slot-desc">Walk or metro to Gràcia — the most authentically local barrio. Try La Pepita for creative montaditos or El Glop for hearty Catalan cuisine (~€20–30pp).</div></div></div>
+      <div class="slot"><span class="slot-time">15:30</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Park Güell</div><div class="slot-desc">The ticketed Monumental Zone must be pre-booked (~€10pp). Arrive for your timed slot, enjoy the mosaic terrace and gingerbread gatehouses. Stunning city views.</div></div></div>
+      <div class="slot"><span class="slot-time">18:00</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Passeig de Gràcia & Casa Batlló</div><div class="slot-desc">Walk down the famous boulevard — see Casa Batlló (exterior free, interior ~€35pp), Casa Milà/La Pedrera and the Block of Discord. World-class luxury shopping here too.</div></div></div>
+      <div class="slot"><span class="slot-time">20:30</span><span class="slot-dot dot-evening"></span><div class="slot-content"><div class="slot-name">Dinner at Cervecería Catalana</div><div class="slot-desc">Excellent tapas and pintxos on Carrer de Mallorca. Expect a queue but worth it — order the aubergine with honey and the bombas. ~€25–35pp.</div></div></div>
+    </div>
+    <div class="tip-box"><p>💡 Barcelona's "magic hour" dinner is 9–10pm. Don't be alarmed by early empty restaurants — that's normal!</p></div>
+  </div>
+</div>
+
+<!-- Day 3 -->
+<div class="day-card" onclick="toggle(this)">
+  <div class="day-header">
+    <span class="day-num">Sun 31 May</span>
+    <span class="day-title">⛰ Montserrat Day Trip</span>
+    <div class="day-tags"><span class="tag tag-outdoor">Outdoor</span><span class="tag tag-culture">Culture</span></div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="slot"><span class="slot-time">08:30</span><span class="slot-dot dot-transit"></span><div class="slot-content"><div class="slot-name">Train from Plaça Espanya</div><div class="slot-desc">Take the R5 FGC train to Monistrol de Montserrat, then the rack railway (cremallera) up the mountain. Journey ~1hr 15min. Buy the Trans Montserrat pass (~€36pp) — includes round-trip train + rack railway + funiculars.</div></div></div>
+      <div class="slot"><span class="slot-time">10:00</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Montserrat Monastery & Black Madonna</div><div class="slot-desc">The 11th-century monastery perched dramatically on jagged rock spires. See the iconic La Moreneta statue. Try to catch the Escolania boys choir (Mon–Fri 1pm, Sun 12pm).</div></div></div>
+      <div class="slot"><span class="slot-time">11:30</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Sant Joan Funicular + hiking trail</div><div class="slot-desc">Ride up to 1,100m and hike the ridge trail to Sant Joan hermitage (easy 30-min walk). Breathtaking panoramic views of Catalonia. Sturdy shoes essential.</div></div></div>
+      <div class="slot"><span class="slot-time">13:30</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Lunch on the mountain</div><div class="slot-desc">Pick up local cheese, sausage and the famous Montserrat "monk's cheese" from the market stalls. Or dine at Restaurant de Montserrat (~€25–35pp).</div></div></div>
+      <div class="slot"><span class="slot-time">15:00</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Santa Cova Funicular trail</div><div class="slot-desc">Ride down to the Santa Cova chapel trail — a dramatic cliff-side path with Gaudí-era sculptures. Only 45 mins round trip.</div></div></div>
+      <div class="slot"><span class="slot-time">17:00</span><span class="slot-dot dot-transit"></span><div class="slot-content"><div class="slot-name">Return to Barcelona</div><div class="slot-desc">Back in Barcelona by 6:30pm. Evening free — explore Montjuïc's Magic Fountain show (free, 9:30pm on weekends in summer) if energy allows.</div></div></div>
+    </div>
+    <div class="tip-box"><p>💡 Montserrat is very popular on Sundays. Start early (8:30am train) to beat the crowds and enjoy the trails before it gets busy.</p></div>
+  </div>
+</div>
+
+<!-- Day 4 -->
+<div class="day-card" onclick="toggle(this)">
+  <div class="day-header">
+    <span class="day-num">Mon 1 Jun</span>
+    <span class="day-title">✈ Montjuïc Morning → Fly to Porto</span>
+    <div class="day-tags"><span class="tag tag-outdoor">Outdoor</span><span class="tag tag-transit">Transit</span></div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="slot"><span class="slot-time">09:00</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Montjuïc by cable car + Castle</div><div class="slot-desc">Take the Port Cable Car up to Montjuïc for sweeping harbour views. Visit the Castle (~€9pp) and Jardins de Laribal botanical gardens. A peaceful morning away from the crowd.</div></div></div>
+      <div class="slot"><span class="slot-time">11:30</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Poble Espanyol & last-minute shopping</div><div class="slot-desc">The "Spanish Village" open-air museum houses artisan workshops — great for souvenirs. ~€14pp. Or browse the El Born boutiques for one final shop.</div></div></div>
+      <div class="slot"><span class="slot-time">13:00</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Lunch & head to airport</div><div class="slot-desc">Quick lunch near hotel, collect bags, Aerobus to BCN airport. Allow 90 mins before departure.</div></div></div>
+      <div class="slot"><span class="slot-time">~16:00</span><span class="slot-dot dot-transit"></span><div class="slot-content"><div class="slot-name">Fly Barcelona → Porto (OPO)</div><div class="slot-desc">~2hr flight. From Porto airport, take the Metro Line E (purple) directly to central Porto — ~35 mins, ~€2pp. No need for a taxi.</div></div></div>
+      <div class="slot"><span class="slot-time">19:00</span><span class="slot-dot dot-evening"></span><div class="slot-content"><div class="slot-name">Check in + São Bento Station visit</div><div class="slot-desc">Drop bags (stay in Clérigos or Ribeira area). Walk 5 mins to São Bento Station — one of the world's most beautiful train stations, with 20,000 azulejo tiles. Free, open daily.</div></div></div>
+      <div class="slot"><span class="slot-time">20:30</span><span class="slot-dot dot-evening"></span><div class="slot-content"><div class="slot-name">First dinner in Porto — Francesinha!</div><div class="slot-desc">Café Santiago (Rua de Passos Manuel) is Porto's most famous Francesinha spot — the city's iconic meat-and-cheese sandwich in a spiced beer sauce. ~€15–18pp.</div></div></div>
+    </div>
+    <div class="tip-box"><p>💡 Stay in the Clérigos or Ribeira neighbourhood in Porto — central, walkable, and you'll be close to everything.</p></div>
+  </div>
+</div>
+
+<!-- PORTO -->
+<div class="city-header">
+  <span class="city-badge badge-opo">PORTO</span>
+  <span class="city-title">Portugal</span>
+  <span class="city-dates">1–4 Jun</span>
+</div>
+
+<!-- Day 5 -->
+<div class="day-card" onclick="toggle(this)">
+  <div class="day-header">
+    <span class="day-num">Tue 2 Jun</span>
+    <span class="day-title">🏘 Historic Porto — Ribeira & Gaia Wine Cellars</span>
+    <div class="day-tags"><span class="tag tag-culture">Culture</span><span class="tag tag-wine">Wine</span><span class="tag tag-food">Food</span></div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="slot"><span class="slot-time">09:00</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Porto Food & Wine Morning Tour</div><div class="slot-desc">Join the "Porto Food & Vintage Port Wine Tour" from Mercado do Bolhão — 3.5 hours, 13 tastings, one of the highest-rated food tours in Europe. Book ahead (~€75pp).</div></div></div>
+      <div class="slot"><span class="slot-time">12:30</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Ribeira District & Porto Cathedral (Sé)</div><div class="slot-desc">Walk the colourful riverside neighbourhood. Climb up to the 12th-century Cathedral — free entry, €3 for the azulejo cloister. Best views of the Douro River from the terrace.</div></div></div>
+      <div class="slot"><span class="slot-time">14:30</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Cross Dom Luís I Bridge → Vila Nova de Gaia</div><div class="slot-desc">Walk across the iconic iron bridge (upper deck for the best views). Head into the famous Port wine cellars on the south bank — Taylor's, Graham's and Sandeman are all excellent (~€15–25pp with tasting).</div></div></div>
+      <div class="slot"><span class="slot-time">17:00</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Douro River Six Bridges Cruise</div><div class="slot-desc">Board a rabelo boat for the classic "6 Bridges Cruise" — ~1 hour sailing under all the city's bridges from a water-level view. €15–18pp, boats run 11am–4pm.</div></div></div>
+      <div class="slot"><span class="slot-time">18:30</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Gaia Cable Car + sunset viewpoint</div><div class="slot-desc">Ride the Teleférico de Gaia up to Miradouro da Serra do Pilar (~€6pp) for the best sunset panorama of Porto. Photographers' dream.</div></div></div>
+      <div class="slot"><span class="slot-time">20:30</span><span class="slot-dot dot-evening"></span><div class="slot-content"><div class="slot-name">Dinner at Mercado Bom Sucesso</div><div class="slot-desc">Buzzy food hall with multiple vendors — great for groups where everyone wants something different. Octopus, bacalhau, petiscos (Portuguese tapas). ~€20–30pp.</div></div></div>
+    </div>
+    <div class="tip-box"><p>💡 Port wine is 20% alcohol — it sneaks up on you! Pace yourselves during the morning food tour and afternoon cellar visits.</p></div>
+  </div>
+</div>
+
+<!-- Day 6 -->
+<div class="day-card" onclick="toggle(this)">
+  <div class="day-header">
+    <span class="day-num">Wed 3 Jun</span>
+    <span class="day-title">🍇 Douro Valley Day Trip</span>
+    <div class="day-tags"><span class="tag tag-outdoor">Outdoor</span><span class="tag tag-wine">Wine</span><span class="tag tag-food">Food</span></div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="slot"><span class="slot-time">08:00</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Depart Porto for Douro Valley</div><div class="slot-desc">Book a guided day tour from Porto (~€70–90pp) — includes transport, wine tastings and lunch. Alternatively, take the scenic Douro train line from São Bento to Pinhão (~2.5hrs, ~€12pp each way) — one of Europe's most beautiful rail journeys.</div></div></div>
+      <div class="slot"><span class="slot-time">10:30</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Quinta do Crasto or Quinta do Vallado</div><div class="slot-desc">Visit one of the region's top organic quintas (wine estates). Tour the terraced vineyards, learn about the harvest and taste Douro whites, reds and vintage Port. The scenery — UNESCO-listed terraced hillsides — is jaw-dropping.</div></div></div>
+      <div class="slot"><span class="slot-time">13:00</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Lunch with Douro River views</div><div class="slot-desc">Traditional Portuguese lunch at a quinta restaurant — expect bacalhau à brás, roasted lamb and local wines. Usually included in guided tours or ~€25–35pp independently.</div></div></div>
+      <div class="slot"><span class="slot-time">15:00</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Village of Pinhão & river cruise</div><div class="slot-desc">Explore the charming Pinhão village (famous for its azulejo-decorated train station). Optional short boat ride on the Douro through the valley.</div></div></div>
+      <div class="slot"><span class="slot-time">17:30</span><span class="slot-dot dot-transit"></span><div class="slot-content"><div class="slot-name">Return to Porto</div><div class="slot-desc">Back in Porto by 7–7:30pm. A more relaxed evening — perfect for a quiet dinner.</div></div></div>
+      <div class="slot"><span class="slot-time">20:00</span><span class="slot-dot dot-evening"></span><div class="slot-content"><div class="slot-name">Fado show + dinner</div><div class="slot-desc">End your Porto stay with a Fado performance — Casa da Mariquinhas or Ideal Clube de Fado are authentic venues. Deeply moving Portuguese soulful music. ~€15–20pp entry.</div></div></div>
+    </div>
+    <div class="tip-box"><p>💡 Book the Douro Valley tour at least 2 weeks ahead — the best quintas and guided tours sell out fast in June.</p></div>
+  </div>
+</div>
+
+<!-- Day 7 -->
+<div class="day-card" onclick="toggle(this)">
+  <div class="day-header">
+    <span class="day-num">Thu 4 Jun</span>
+    <span class="day-title">📚 Porto Morning → Back to Barcelona</span>
+    <div class="day-tags"><span class="tag tag-culture">Culture</span><span class="tag tag-shop">Shopping</span><span class="tag tag-transit">Transit</span></div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="slot"><span class="slot-time">09:00</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Livraria Lello — the famous bookshop</div><div class="slot-desc">One of the world's most beautiful bookshops — a neo-Gothic 1906 masterpiece. Queue early to get good photos. Entry €5pp (redeemable against purchase).</div></div></div>
+      <div class="slot"><span class="slot-time">10:30</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Clérigos Tower + Palácio da Bolsa</div><div class="slot-desc">Climb the 225 steps of the Baroque Clérigos Tower for 360° city views (~€5pp). Then visit the stunning Arab Room inside Palácio da Bolsa (~€5pp).</div></div></div>
+      <div class="slot"><span class="slot-time">12:00</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Rua de Santa Catarina shopping</div><div class="slot-desc">Porto's main pedestrian shopping street — mix of local boutiques, Portuguese ceramics, cork products and international brands. Great for last-minute souvenirs.</div></div></div>
+      <div class="slot"><span class="slot-time">13:00</span><span class="slot-dot dot-afternoon"></span><div class="slot-content"><div class="slot-name">Farewell lunch — Bacalhau à Brás</div><div class="slot-desc">Try the classic salted cod dish at Cantinho do Avillez or Brasão Aliados. ~€20–25pp. Then metro to airport (Line E, 35 mins).</div></div></div>
+      <div class="slot"><span class="slot-time">~18:00</span><span class="slot-dot dot-transit"></span><div class="slot-content"><div class="slot-name">Fly Porto → Barcelona</div><div class="slot-desc">~2hr flight back. Check in to your Barcelona hotel/apartment for the final two nights.</div></div></div>
+      <div class="slot"><span class="slot-time">21:00</span><span class="slot-dot dot-evening"></span><div class="slot-content"><div class="slot-name">Final Barcelona night out</div><div class="slot-desc">Head to El Born or Poble Sec for tapas and cocktails. Bodega Sepúlveda, Bar Calders or a classic vermouth bar in the Raval neighbourhood.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 8 -->
+<div class="day-card" onclick="toggle(this)">
+  <div class="day-header">
+    <span class="day-num">Fri 5 Jun</span>
+    <span class="day-title">🌅 Final Morning — Departure by 11am</span>
+    <div class="day-tags"><span class="tag tag-food">Food</span><span class="tag tag-transit">Transit</span></div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="slot"><span class="slot-time">07:30</span><span class="slot-dot dot-morning"></span><div class="slot-content"><div class="slot-name">Final breakfast in Barcelona</div><div class="slot-desc">Café croissant and cortado at a local granjería. If staying near Eixample, try Federal Café or Alsur Café for a proper last morning.</div></div></div>
+      <div class="slot"><span class="slot-time">09:00</span><span class="slot-dot dot-transit"></span><div class="slot-content"><div class="slot-name">Collect bags & Aerobus to BCN airport</div><div class="slot-desc">Aerobus departs from Plaça Catalunya every 5–10 minutes. Journey ~35 mins. Arrive airport with 90 minutes to spare before any departure.</div></div></div>
+    </div>
+    <div class="tip-box"><p>💡 The Aerobus to the airport takes 35 mins — for an 11am departure, aim to leave your hotel no later than 8:45am.</p></div>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<script>
+function toggle(card) {
+  card.classList.toggle('open');
+}
+document.querySelector('.day-card').classList.add('open');
+</script>
+</body>
+</html>
