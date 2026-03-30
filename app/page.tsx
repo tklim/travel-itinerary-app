@@ -62,6 +62,9 @@ export default async function HomePage() {
             <Link href="/schedule" className="button-secondary">
               Full schedule
             </Link>
+            <Link href="/flights" className="button-secondary">
+              Flight details
+            </Link>
             <Link href="/stay" className="button-secondary">
               Hotel details
             </Link>

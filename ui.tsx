@@ -54,6 +54,7 @@ export function TravelerNav({ pathname }: { pathname: string }) {
     { href: "/", label: "Home" },
     { href: "/today", label: "Today" },
     { href: "/schedule", label: "Schedule" },
+    { href: "/flights", label: "Flights" },
     { href: "/stay", label: "Stay" }
   ] as const;
 
