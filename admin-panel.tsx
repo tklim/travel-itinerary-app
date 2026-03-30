@@ -328,9 +328,18 @@ export async function AdminPanel({ subpage = "overview" }: { subpage?: string })
               Workbook file
               <input className="input" type="file" name="workbook" accept=".xlsx,.xls,.csv" required />
             </label>
-            <button className="button" type="submit">
-              Validate and import
-            </button>
+            <div className="pill-row">
+              <button className="button" type="submit">
+                Validate and import
+              </button>
+              <a
+                className="button-secondary"
+                href="/templates/barcelona-porto-multi-timezone-template-partial-updated-from-screenshot.xlsx"
+                download
+              >
+                Download current template
+              </a>
+            </div>
           </form>
         </article>
 
