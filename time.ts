@@ -41,6 +41,35 @@ export const formatShortTime = (date: Date, timezone: string) =>
 export const formatDateLabel = (date: Date, timezone: string) =>
   formatInTimeZone(date, timezone, "EEEE d MMMM");
 
+export const formatDateRange = (start: Date, end: Date, timezone: string) => {
+  const startMonth = formatInTimeZone(start, timezone, "MMM");
+  const endMonth = formatInTimeZone(end, timezone, "MMM");
+  const startYear = formatInTimeZone(start, timezone, "yyyy");
+  const endYear = formatInTimeZone(end, timezone, "yyyy");
+
+  if (startYear === endYear && startMonth === endMonth) {
+    return `${formatInTimeZone(start, timezone, "d")} to ${formatInTimeZone(
+      end,
+      timezone,
+      "d MMM"
+    )}`;
+  }
+
+  if (startYear === endYear) {
+    return `${formatInTimeZone(start, timezone, "d MMM")} to ${formatInTimeZone(
+      end,
+      timezone,
+      "d MMM"
+    )}`;
+  }
+
+  return `${formatInTimeZone(start, timezone, "d MMM yyyy")} to ${formatInTimeZone(
+    end,
+    timezone,
+    "d MMM yyyy"
+  )}`;
+};
+
 export const zonedDayKey = (date: Date, timezone: string) =>
   formatInTimeZone(date, timezone, "yyyy-MM-dd");
 

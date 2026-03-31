@@ -3,6 +3,7 @@ import Link from "next/link";
 import { logoutAction } from "@/actions";
 import { requireTraveler } from "@/auth";
 import { buildTravelerDashboard } from "@/itinerary";
+import { formatDateRange } from "@/time";
 import { AppShell, AnswerCards, LastUpdated, PageIntro, ScheduleView, StaySummaryCard, SummaryStats, TravelerNav } from "@/ui";
 
 export default async function HomePage() {
@@ -37,7 +38,14 @@ export default async function HomePage() {
 
       <SummaryStats
         stats={[
-          { label: "Trip window", value: "29 May to 5 Jun" },
+          {
+            label: "Trip window",
+            value: formatDateRange(
+              snapshot.trip.tripStartAt,
+              snapshot.trip.tripEndAt,
+              snapshot.trip.homeTimezone
+            )
+          },
           { label: "Current timezone", value: snapshot.trip.homeTimezone },
           { label: "Published plan", value: `v${snapshot.trip.publishedVersion}` }
         ]}
