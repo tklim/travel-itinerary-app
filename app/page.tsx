@@ -4,7 +4,7 @@ import { logoutAction } from "@/actions";
 import { requireTraveler } from "@/auth";
 import { buildTravelerDashboard } from "@/itinerary";
 import { formatDateRange } from "@/time";
-import { AppShell, AnswerCards, CompactPageIntro, LastUpdated, ScheduleView, StaySummaryCard, SummaryStats, TravelerNav } from "@/ui";
+import { AgendaGroups, AppShell, AnswerCards, CompactPageIntro, LastUpdated, StaySummaryCard, SummaryStats, TravelerNav } from "@/ui";
 
 export default async function HomePage() {
   await requireTraveler();
@@ -84,9 +84,9 @@ export default async function HomePage() {
       <section className="stack">
         <div className="section-heading">
           <h2 className="section-title">Upcoming itinerary</h2>
-          <p className="muted">A simplified timeline for the next couple of days.</p>
+          <p className="muted">The next couple of days, in the same grouped view as the full schedule.</p>
         </div>
-        <ScheduleView groups={schedule.slice(0, 2)} />
+        <AgendaGroups groups={schedule.slice(0, 2)} />
       </section>
     </AppShell>
   );

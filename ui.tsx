@@ -203,8 +203,12 @@ export function ScheduleView({ groups }: { groups: DayTimelineGroup[] }) {
         <article key={group.dayKey} className="timeline-card">
           <div className="day-heading">
             <div>
-              <h2 className="section-title">{group.label}</h2>
-              <p className="muted">{group.dateText}</p>
+              {group.label !== group.dateText ? (
+                <div className="pill-row" style={{ marginBottom: 8 }}>
+                  <span className="pill">{group.label}</span>
+                </div>
+              ) : null}
+              <h2 className="section-title">{group.dateText}</h2>
             </div>
             <span className="chip">{group.timezone}</span>
           </div>
@@ -247,11 +251,10 @@ export function AgendaGroups({ groups }: { groups: DayTimelineGroup[] }) {
           <article key={group.dayKey} className="timeline-card today-agenda">
             <div className="section-heading" style={{ marginBottom: 0 }}>
               <div className="pill-row">
-                <span className="pill">{group.dateText}</span>
+                {group.label !== group.dateText ? <span className="pill">{group.label}</span> : null}
                 <span className="chip">{group.timezone}</span>
               </div>
-              <h2 className="section-title">{group.label}</h2>
-              <p className="muted">{group.dateText}</p>
+              <h2 className="section-title">{group.dateText}</h2>
             </div>
 
             <div className="today-agenda-list">
