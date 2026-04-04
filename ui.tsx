@@ -28,7 +28,7 @@ export function AppShell({
       <header className="topbar">
         <div className="brand">
           <div className="brand-mark">T</div>
-          <div className="stack" style={{ gap: 6 }}>
+          <div className="brand-copy stack" style={{ gap: 6 }}>
             {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
             <div>
               <h1 style={{ margin: 0 }}>{title}</h1>
@@ -41,7 +41,7 @@ export function AppShell({
             </p>
           </div>
         </div>
-        {actions}
+        {actions ? <div className="shell-actions">{actions}</div> : null}
       </header>
       {nav}
       <main className="stack spacious">{children}</main>
@@ -60,7 +60,7 @@ export function TravelerNav({ pathname }: { pathname: string }) {
 
   return (
     <>
-      <nav className="nav-tabs" aria-label="Traveler pages">
+      <nav className="nav-tabs traveler-nav-tabs" aria-label="Traveler pages">
         {links.map((link) => (
           <Link
             key={link.href}
@@ -71,7 +71,7 @@ export function TravelerNav({ pathname }: { pathname: string }) {
           </Link>
         ))}
       </nav>
-      <div className="footer-nav">
+      <div className="footer-nav traveler-footer-nav">
         <div className="footer-nav-inner">
           {links.map((link) => (
             <Link
@@ -235,6 +235,51 @@ export function ScheduleView({ groups }: { groups: DayTimelineGroup[] }) {
   );
 }
 
+export function AgendaGroups({ groups }: { groups: DayTimelineGroup[] }) {
+  return (
+    <section className="stack">
+      {groups.map((group) => {
+        const items = [...group.items].sort((a, b) => a.startAt.getTime() - b.startAt.getTime());
+
+        return (
+          <article key={group.dayKey} className="timeline-card today-agenda">
+            <div className="section-heading" style={{ marginBottom: 0 }}>
+              <div className="pill-row">
+                <span className="pill">{group.dateText}</span>
+                <span className="chip">{group.timezone}</span>
+              </div>
+              <h2 className="section-title">{group.label}</h2>
+              <p className="muted">{group.dateText}</p>
+            </div>
+
+            <div className="today-agenda-list">
+              {items.map((item) => (
+                <article key={item.id} className="today-agenda-item">
+                  <div className="today-agenda-time">
+                    <strong>{formatShortTime(item.startAt, item.timezone)}</strong>
+                    {item.endAt ? (
+                      <span className="muted">to {formatShortTime(item.endAt, item.timezone)}</span>
+                    ) : null}
+                  </div>
+                  <div className="today-agenda-content">
+                    <div className="pill-row">
+                      <span className="pill">{item.category}</span>
+                      {item.kind === "flight" ? <span className="chip warm">Flight</span> : null}
+                    </div>
+                    <h3 className="timeline-title">{item.title}</h3>
+                    <p>{item.subtitle}</p>
+                    {item.detail ? <p className="muted">{item.detail}</p> : null}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </article>
+        );
+      })}
+    </section>
+  );
+}
+
 export function EmptyNotice({
   title,
   body,
@@ -299,6 +344,39 @@ export function PageIntro({
         </div>
         {chips?.length ? (
           <div className="pill-row" style={{ justifyContent: "flex-start" }}>
+            {chips.map((chip) => (
+              <span key={chip} className="chip">
+                {chip}
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </section>
+  );
+}
+
+export function CompactPageIntro({
+  title,
+  body,
+  chips,
+  detail
+}: {
+  title: string;
+  body: string;
+  chips?: string[];
+  detail?: string;
+}) {
+  return (
+    <section className="panel compact-hero">
+      <div className="compact-hero-row">
+        <div className="stack" style={{ gap: 8 }}>
+          <h2 className="compact-hero-title">{title}</h2>
+          {detail ? <p className="compact-hero-detail">{detail}</p> : null}
+          <p className="hero-copy">{body}</p>
+        </div>
+        {chips?.length ? (
+          <div className="pill-row">
             {chips.map((chip) => (
               <span key={chip} className="chip">
                 {chip}

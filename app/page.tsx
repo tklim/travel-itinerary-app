@@ -4,7 +4,7 @@ import { logoutAction } from "@/actions";
 import { requireTraveler } from "@/auth";
 import { buildTravelerDashboard } from "@/itinerary";
 import { formatDateRange } from "@/time";
-import { AppShell, AnswerCards, LastUpdated, PageIntro, ScheduleView, StaySummaryCard, SummaryStats, TravelerNav } from "@/ui";
+import { AppShell, AnswerCards, CompactPageIntro, LastUpdated, ScheduleView, StaySummaryCard, SummaryStats, TravelerNav } from "@/ui";
 
 export default async function HomePage() {
   await requireTraveler();
@@ -25,7 +25,7 @@ export default async function HomePage() {
         </form>
       }
     >
-      <PageIntro
+      <CompactPageIntro
         title="Keep everyone on the same page."
         body="This dashboard is designed for the family to answer the most common travel questions without digging through long documents or message threads."
         chips={[

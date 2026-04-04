@@ -1,8 +1,8 @@
 import { logoutAction } from "@/actions";
 import { requireTraveler } from "@/auth";
 import { getPublishedSnapshot } from "@/itinerary";
-import { formatDateTime } from "@/time";
-import { AppShell, EmptyNotice, PageIntro, TravelerNav } from "@/ui";
+import { formatDuration, formatShortDate, formatShortTime } from "@/time";
+import { AppShell, CompactPageIntro, EmptyNotice, TravelerNav } from "@/ui";
 
 export default async function FlightsPage() {
   await requireTraveler();
@@ -23,9 +23,9 @@ export default async function FlightsPage() {
         </form>
       }
     >
-      <PageIntro
+      <CompactPageIntro
         title="Keep the flight plan clear."
-        body="Use this page for airline details, terminals, departure and arrival times, and transit notes across every leg of the trip."
+        body="Airline details, times, terminals, and transit notes in one tighter view."
         chips={[`${snapshot.flights.length} flights`, snapshot.trip.homeTimezone]}
       />
 
@@ -35,64 +35,68 @@ export default async function FlightsPage() {
           body="Once flights are added to the itinerary, they will appear here in order."
         />
       ) : (
-        <section className="stack">
+        <section className="flight-list">
           {snapshot.flights.map((flight) => (
-            <article key={flight.id} className="info-card stack">
-              <div className="day-heading">
-                <div>
-                  <h2 className="section-title" style={{ marginBottom: 6 }}>
-                    {flight.originCode} to {flight.destinationCode}
-                  </h2>
-                  <p className="muted" style={{ margin: 0 }}>
-                    {flight.airline} {flight.flightNumber}
-                  </p>
+            <article key={flight.id} className="flight-card">
+              <div className="flight-card-header">
+                <div className="pill-row">
+                  <span className="pill">{formatShortDate(flight.departAt, flight.originTimezone)}</span>
+                  <span className="chip warm">{flight.originCode}-{flight.destinationCode}</span>
                 </div>
-                <span className="chip warm">Flight</span>
+                <p className="muted flight-airline">
+                  {flight.airline} {flight.flightNumber}
+                </p>
               </div>
 
-              <div className="info-grid">
-                <div className="stack" style={{ gap: 6 }}>
-                  <span className="pill">Departure</span>
-                  <strong>{formatDateTime(flight.departAt, flight.originTimezone)}</strong>
-                  <p className="muted" style={{ margin: 0 }}>
-                    {flight.originName} ({flight.originCode})
+              <div className="flight-visual">
+                <div className="flight-end flight-end-left">
+                  <strong className="flight-time">
+                    {formatShortTime(flight.departAt, flight.originTimezone)}
+                  </strong>
+                  <p className="flight-code">{flight.originCode}</p>
+                  <p className="muted flight-place">{flight.originName}</p>
+                  <p className="muted flight-subline">
+                    {formatShortDate(flight.departAt, flight.originTimezone)}
                   </p>
-                  <p className="muted" style={{ margin: 0 }}>
-                    {flight.originTimezone}
-                  </p>
-                  {flight.terminal ? (
-                    <p className="muted" style={{ margin: 0 }}>
-                      Terminal: {flight.terminal}
-                    </p>
-                  ) : null}
                 </div>
 
-                <div className="stack" style={{ gap: 6 }}>
-                  <span className="pill">Arrival</span>
-                  <strong>{formatDateTime(flight.arriveAt, flight.destinationTimezone)}</strong>
-                  <p className="muted" style={{ margin: 0 }}>
-                    {flight.destinationName} ({flight.destinationCode})
-                  </p>
-                  <p className="muted" style={{ margin: 0 }}>
-                    {flight.destinationTimezone}
+                <div className="flight-center">
+                  <div className="flight-duration">{formatDuration(flight.departAt, flight.arriveAt)}</div>
+                  <div className="flight-line" aria-hidden="true">
+                    <span />
+                    <span className="flight-plane">✈</span>
+                    <span />
+                  </div>
+                  <div className="flight-number">{flight.flightNumber}</div>
+                </div>
+
+                <div className="flight-end flight-end-right">
+                  <strong className="flight-time">
+                    {formatShortTime(flight.arriveAt, flight.destinationTimezone)}
+                  </strong>
+                  <p className="flight-code">{flight.destinationCode}</p>
+                  <p className="muted flight-place">{flight.destinationName}</p>
+                  <p className="muted flight-subline">
+                    {formatShortDate(flight.arriveAt, flight.destinationTimezone)}
                   </p>
                 </div>
               </div>
 
-              <div className="pill-row">
+              <div className="flight-meta">
+                {flight.terminal ? <span className="chip">Terminal {flight.terminal}</span> : null}
                 {flight.confirmationCode ? (
                   <span className="chip">Booking {flight.confirmationCode}</span>
                 ) : null}
                 {typeof flight.airportLeadMinutes === "number" ? (
-                  <span className="chip">{flight.airportLeadMinutes} min airport buffer</span>
+                  <span className="chip">{flight.airportLeadMinutes} min airport</span>
                 ) : null}
                 {typeof flight.wakeLeadMinutes === "number" ? (
-                  <span className="chip">{flight.wakeLeadMinutes} min wake buffer</span>
+                  <span className="chip">{flight.wakeLeadMinutes} min wake</span>
                 ) : null}
               </div>
 
               {flight.notes ? (
-                <p className="muted" style={{ margin: 0 }}>
+                <p className="muted flight-notes">
                   {flight.notes}
                 </p>
               ) : null}

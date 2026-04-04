@@ -57,7 +57,7 @@ button {
 .shell {
   width: min(1120px, calc(100vw - 24px));
   margin: 0 auto;
-  padding: 24px 0 120px;
+  padding: 24px 0 calc(132px + env(safe-area-inset-bottom, 0px));
 }
 
 .topbar {
@@ -72,6 +72,16 @@ button {
   display: flex;
   align-items: center;
   gap: 14px;
+}
+
+.brand-copy {
+  min-width: 0;
+}
+
+.brand-copy h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
 }
 
 .brand-mark {
@@ -144,6 +154,33 @@ button {
   line-height: 1.6;
 }
 
+.compact-hero {
+  padding: 18px 22px;
+}
+
+.compact-hero-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.compact-hero-title {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.compact-hero-detail {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--muted);
+}
+
 .stats-grid,
 .answers-grid,
 .info-grid,
@@ -184,6 +221,190 @@ button {
   display: grid;
   gap: 10px;
   align-content: start;
+}
+
+.flight-list {
+  display: grid;
+  gap: 12px;
+}
+
+.flight-card {
+  padding: 16px 18px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--line);
+  display: grid;
+  gap: 14px;
+}
+
+.flight-card-header {
+  display: grid;
+  gap: 8px;
+}
+
+.flight-airline {
+  margin: 0;
+  font-size: 0.96rem;
+}
+
+.flight-visual {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 132px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+.flight-end {
+  display: grid;
+  gap: 2px;
+}
+
+.flight-end-right {
+  text-align: right;
+}
+
+.flight-time {
+  font-size: clamp(1.55rem, 3vw, 2rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.flight-code {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.flight-place {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.flight-subline {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.flight-center {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.flight-duration {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.flight-line {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 8px;
+  align-items: center;
+  color: var(--warm);
+}
+
+.flight-line span:first-child,
+.flight-line span:last-child {
+  height: 1px;
+  background: rgba(28, 33, 27, 0.14);
+}
+
+.flight-plane {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.flight-number {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.flight-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.flight-notes {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.today-card-list {
+  display: grid;
+  gap: 10px;
+}
+
+.today-card {
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--line);
+  display: grid;
+  gap: 8px;
+}
+
+.today-card-headline {
+  font-size: 1.15rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.today-card-supporting,
+.today-card-detail {
+  margin: 0;
+}
+
+.today-agenda {
+  padding: 18px;
+}
+
+.today-agenda-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.today-agenda-item {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.today-agenda-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.today-agenda-time {
+  display: grid;
+  gap: 4px;
+  font-size: 0.86rem;
+}
+
+.today-agenda-time strong {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.today-agenda-content {
+  display: grid;
+  gap: 6px;
+}
+
+.today-agenda-content p,
+.today-agenda-content h3 {
+  margin: 0;
 }
 
 .answer-card strong,
@@ -472,13 +693,250 @@ button {
 
 @media (max-width: 720px) {
   .shell {
-    width: min(100vw - 16px, 100%);
-    padding-top: 16px;
+    width: min(100vw - 12px, 100%);
+    padding-top: 12px;
+    padding-bottom: calc(150px + env(safe-area-inset-bottom, 0px));
   }
 
   .topbar {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .brand {
     align-items: flex-start;
+    gap: 12px;
+  }
+
+  .brand-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 16px;
+    font-size: 1.05rem;
+  }
+
+  .brand-copy h1 {
+    font-size: 2.05rem;
+  }
+
+  .shell-actions {
+    justify-self: end;
+  }
+
+  .shell-actions .button-secondary,
+  .shell-actions .button,
+  .shell-actions .button-link {
+    padding: 11px 14px;
+    border-radius: 14px;
+  }
+
+  .traveler-nav-tabs {
+    display: none;
+  }
+
+  .hero {
+    padding: 24px 20px;
+    gap: 16px;
+  }
+
+  .compact-hero {
+    padding: 16px 18px;
+  }
+
+  .compact-hero-row {
+    display: grid;
+    gap: 12px;
+  }
+
+  .compact-hero-title {
+    font-size: 1.08rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .compact-hero-detail {
+    font-size: 0.92rem;
+  }
+
+  .hero-grid {
+    gap: 14px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.8rem, 9vw, 2.8rem);
+    max-width: 10ch;
+  }
+
+  .hero-copy {
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .stats-grid,
+  .answers-grid,
+  .info-grid,
+  .admin-grid,
+  .forms-grid,
+  .two-up {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card,
+  .answer-card,
+  .info-card,
+  .timeline-card,
+  .form-card,
+  .admin-card,
+  .notice-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .answer-card {
+    min-height: 0;
+  }
+
+  .answer-time {
+    font-size: clamp(1.25rem, 7vw, 1.8rem);
+  }
+
+  .pill-row,
+  .chip-row {
+    gap: 8px;
+  }
+
+  .pill,
+  .chip {
+    padding: 6px 11px;
+    font-size: 0.8rem;
+  }
+
+  .flight-list {
+    gap: 10px;
+  }
+
+  .flight-card {
+    padding: 14px 14px 16px;
+    gap: 12px;
+    border-radius: 18px;
+  }
+
+  .flight-airline {
+    font-size: 0.9rem;
+  }
+
+  .flight-visual {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .flight-end,
+  .flight-end-right {
+    text-align: left;
+  }
+
+  .flight-end {
+    grid-template-columns: auto 1fr;
+    column-gap: 12px;
+    row-gap: 2px;
+    align-items: start;
+  }
+
+  .flight-time {
+    grid-row: span 3;
+    font-size: 1.7rem;
+  }
+
+  .flight-code {
+    font-size: 1rem;
+  }
+
+  .flight-place,
+  .flight-subline {
+    font-size: 0.82rem;
+  }
+
+  .flight-center {
+    grid-template-columns: auto 1fr auto;
+    display: grid;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .flight-line {
+    min-width: 0;
+  }
+
+  .flight-duration,
+  .flight-number {
+    white-space: nowrap;
+  }
+
+  .flight-meta {
+    gap: 6px;
+  }
+
+  .today-card-list {
+    gap: 8px;
+  }
+
+  .today-card {
+    padding: 12px 14px;
+    gap: 6px;
+  }
+
+  .today-card-headline {
+    font-size: 1.02rem;
+  }
+
+  .today-agenda {
+    padding: 14px;
+  }
+
+  .today-agenda-list {
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .today-agenda-item {
+    grid-template-columns: 72px 1fr;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+
+  .today-agenda-time {
+    font-size: 0.78rem;
+  }
+
+  .today-agenda-time strong {
+    font-size: 0.92rem;
+  }
+
+  .button,
+  .button-secondary {
+    width: 100%;
+  }
+
+  .traveler-footer-nav {
+    inset: auto 12px 12px;
+  }
+
+  .footer-nav-inner {
+    width: min(100%, 430px);
+    gap: 4px;
+    padding: 8px;
+    border-radius: 22px;
+  }
+
+  .footer-nav a {
+    flex: 1 1 0;
+    text-align: center;
+    padding: 10px 6px;
+    font-size: 0.88rem;
   }
 
   .timeline-item {

@@ -1,4 +1,4 @@
-import { addMinutes, differenceInCalendarDays, format, isSameDay } from "date-fns";
+import { addMinutes, differenceInCalendarDays, differenceInMinutes, format, isSameDay } from "date-fns";
 import { formatInTimeZone, fromZonedTime, toZonedTime } from "date-fns-tz";
 
 const parseLocalDateTimeParts = (value: string) => {
@@ -37,6 +37,25 @@ export const formatDateTime = (
 
 export const formatShortTime = (date: Date, timezone: string) =>
   formatInTimeZone(date, timezone, "h:mm a");
+
+export const formatShortDate = (date: Date, timezone: string) =>
+  formatInTimeZone(date, timezone, "EEE d MMM");
+
+export const formatDuration = (start: Date, end: Date) => {
+  const totalMinutes = Math.max(differenceInMinutes(end, start), 0);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  if (hours === 0) {
+    return `${minutes}m`;
+  }
+
+  if (minutes === 0) {
+    return `${hours}h`;
+  }
+
+  return `${hours}h ${minutes}m`;
+};
 
 export const formatDateLabel = (date: Date, timezone: string) =>
   formatInTimeZone(date, timezone, "EEEE d MMMM");

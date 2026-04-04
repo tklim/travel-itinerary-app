@@ -2,7 +2,7 @@ import { logoutAction } from "@/actions";
 import { requireAdmin, requireTraveler } from "@/auth";
 import { AdminPanel } from "@/admin-panel";
 import { buildTravelerDashboard } from "@/itinerary";
-import { AppShell, PageIntro, ScheduleView, TravelerNav } from "@/ui";
+import { AgendaGroups, AppShell, CompactPageIntro, TravelerNav } from "@/ui";
 
 export default async function SchedulePage({
   searchParams
@@ -34,12 +34,12 @@ export default async function SchedulePage({
         </form>
       }
     >
-      <PageIntro
+      <CompactPageIntro
         title="Every day, in order"
-        body="Flight times, tours, dinners, and transfer moments are grouped by the local day so they stay understandable across Barcelona and Porto."
+        body="Flight times, plans, and transfers are grouped by local day and shown in time sequence."
         chips={[`${schedule.length} day groups`, `${snapshot.events.length} events`, `${snapshot.flights.length} flights`]}
       />
-      <ScheduleView groups={schedule} />
+      <AgendaGroups groups={schedule} />
     </AppShell>
   );
 }
