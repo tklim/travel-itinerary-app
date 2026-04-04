@@ -12,7 +12,7 @@ export default async function HomePage() {
 
   return (
     <AppShell
-      title="Travel answers at a glance"
+      title="Travel trip at a glance"
       subtitle="Fast answers for flights, airport runs, hotels, and tomorrow morning."
       eyebrow="Traveler view"
       tripName={snapshot.trip.name}
@@ -37,6 +37,7 @@ export default async function HomePage() {
       />
 
       <SummaryStats
+        compact
         stats={[
           {
             label: "Trip window",
@@ -46,8 +47,7 @@ export default async function HomePage() {
               snapshot.trip.homeTimezone
             )
           },
-          { label: "Current timezone", value: snapshot.trip.homeTimezone },
-          { label: "Published plan", value: `v${snapshot.trip.publishedVersion}` }
+          { label: "Current timezone", value: snapshot.trip.homeTimezone }
         ]}
       />
 

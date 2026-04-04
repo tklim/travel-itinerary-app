@@ -136,18 +136,20 @@ export function AnswerCards({ cards }: { cards: AnswerCard[] }) {
 }
 
 export function SummaryStats({
-  stats
+  stats,
+  compact = false
 }: {
   stats: Array<{ label: string; value: string }>;
+  compact?: boolean;
 }) {
   return (
-    <section className="stats-grid">
+    <section className={`stats-grid${compact ? " stats-grid-compact" : ""}`}>
       {stats.map((stat) => (
-        <article key={stat.label} className="stat-card">
-          <div className="muted" style={{ fontSize: "0.88rem" }}>
+        <article key={stat.label} className={`stat-card${compact ? " stat-card-compact" : ""}`}>
+          <div className={`muted stat-label${compact ? " stat-label-compact" : ""}`}>
             {stat.label}
           </div>
-          <div className="answer-time" style={{ marginTop: 10 }}>
+          <div className={`answer-time stat-value${compact ? " stat-value-compact" : ""}`}>
             {stat.value}
           </div>
         </article>

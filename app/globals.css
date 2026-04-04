@@ -199,6 +199,11 @@ button {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
+.stats-grid-compact {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
 .admin-grid {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
@@ -221,6 +226,11 @@ button {
   display: grid;
   gap: 10px;
   align-content: start;
+}
+
+.stat-card-compact {
+  padding: 12px 14px;
+  border-radius: 18px;
 }
 
 .flight-list {
@@ -419,6 +429,24 @@ button {
   font-size: clamp(1.4rem, 3vw, 2rem);
   line-height: 1.05;
   letter-spacing: -0.04em;
+}
+
+.stat-label {
+  font-size: 0.88rem;
+}
+
+.stat-label-compact {
+  font-size: 0.78rem;
+}
+
+.stat-value {
+  margin-top: 10px;
+}
+
+.stat-value-compact {
+  margin-top: 6px;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  letter-spacing: -0.02em;
 }
 
 .muted {
@@ -802,6 +830,19 @@ button {
 
   .answer-time {
     font-size: clamp(1.25rem, 7vw, 1.8rem);
+  }
+
+  .stat-card-compact {
+    padding: 12px 14px;
+  }
+
+  .stat-label-compact {
+    font-size: 0.76rem;
+  }
+
+  .stat-value-compact {
+    font-size: 0.96rem;
+    line-height: 1.2;
   }
 
   .pill-row,
