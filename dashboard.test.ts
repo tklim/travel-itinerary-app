@@ -79,24 +79,24 @@ const snapshot: TripSnapshot = {
 
 describe("traveler dashboard state", () => {
   it("resolves the active stay for tonight", () => {
-    const now = parseLocalDateTime("2026-06-02T21:00", "Europe/Lisbon");
+    const now = parseLocalDateTime("2026-05-29T21:00", "Asia/Kuala_Lumpur");
     const stay = deriveTonightStaySummary(snapshot, now);
 
-    expect(stay.name).toBe("Porto Riverside Suites");
+    expect(stay.name).toBe("Kuala Lumpur City Centre Hotel");
     expect(stay.status).toBe("active");
   });
 
   it("computes tomorrow wake-up from the earliest timed plan", () => {
-    const now = parseLocalDateTime("2026-06-01T20:30", "Europe/Lisbon");
+    const now = parseLocalDateTime("2026-05-28T20:30", "Asia/Kuala_Lumpur");
     const wakeCard = deriveTomorrowWakeCard(snapshot, now);
 
     expect(wakeCard.title).toBe("Wake up tomorrow");
     expect(wakeCard.badge).toBe("Tomorrow");
-    expect(wakeCard.headline).toContain("6:45");
+    expect(wakeCard.headline).toContain("7:15");
   });
 
   it("builds answer cards and grouped schedule", () => {
-    const now = parseLocalDateTime("2026-05-30T09:00", "Europe/Madrid");
+    const now = parseLocalDateTime("2026-05-29T09:00", "Asia/Kuala_Lumpur");
     const state = buildTravelerState(snapshot, now);
 
     expect(state.answerCards).toHaveLength(4);

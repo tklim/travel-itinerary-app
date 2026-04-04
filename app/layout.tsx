@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
 
 import "@/app/globals.css";
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-primary"
+});
 
 export const metadata: Metadata = {
   title: "Travel Itinerary App",
@@ -14,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={roboto.variable}>{children}</body>
     </html>
   );
 }
