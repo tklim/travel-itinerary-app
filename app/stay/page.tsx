@@ -3,7 +3,7 @@ import Link from "next/link";
 import { logoutAction } from "@/actions";
 import { requireTraveler } from "@/auth";
 import { getPublishedSnapshot } from "@/itinerary";
-import { AppShell, PageIntro, StaySummaryCard, TravelerNav } from "@/ui";
+import { AppShell, CompactPageIntro, TravelerNav } from "@/ui";
 import { formatDateTime } from "@/time";
 
 export default async function StayPage() {
@@ -29,49 +29,62 @@ export default async function StayPage() {
         </form>
       }
     >
-      <PageIntro
+      <CompactPageIntro
         title="Know where you're sleeping tonight."
-        body="This page keeps addresses, check-in windows, and map links together so nobody has to search through booking emails."
+        body="Addresses, check-in windows, and map links stay together in one compact view."
         chips={[`${snapshot.stays.length} stays`, snapshot.trip.homeTimezone]}
       />
 
       {currentStay ? (
-        <StaySummaryCard
-          stay={{
-            status: "active",
-            name: currentStay.name,
-            city: currentStay.city,
-            timezone: currentStay.timezone,
-            headline: `Current or next stay in ${currentStay.city}.`,
-            address: currentStay.address,
-            phone: currentStay.phone,
-            mapUrl: currentStay.mapUrl,
-            checkInText: `Check in: ${formatDateTime(currentStay.checkInAt, currentStay.timezone)}`,
-            checkOutText: `Check out: ${formatDateTime(currentStay.checkOutAt, currentStay.timezone)}`,
-            notes: currentStay.notes
-          }}
-        />
+        <article className="stay-highlight">
+          <div className="pill-row">
+            <span className="pill">Where are we staying?</span>
+            <span className="chip">Tonight</span>
+          </div>
+          <h2 className="stay-card-title">{currentStay.name}</h2>
+          <p className="muted" style={{ margin: 0 }}>
+            Current or next stay in {currentStay.city}.
+          </p>
+          <p style={{ margin: 0 }}>{currentStay.address}</p>
+          <div className="stay-card-meta">
+            <p className="muted" style={{ margin: 0 }}>
+              Check in: {formatDateTime(currentStay.checkInAt, currentStay.timezone)}
+            </p>
+            <p className="muted" style={{ margin: 0 }}>
+              Check out: {formatDateTime(currentStay.checkOutAt, currentStay.timezone)}
+            </p>
+          </div>
+          <div className="pill-row">
+            <span className="chip">{currentStay.timezone}</span>
+            {currentStay.mapUrl ? (
+              <a className="button-secondary" href={currentStay.mapUrl} target="_blank" rel="noreferrer">
+                Open map
+              </a>
+            ) : null}
+          </div>
+        </article>
       ) : null}
 
-      <section className="stack">
+      <section className="stay-list">
         {snapshot.stays.map((stay) => (
-          <article key={stay.id} className="info-card stack">
-            <div className="day-heading">
-              <div>
-                <h2 className="section-title">{stay.name}</h2>
-                <p className="muted">
-                  {stay.city}, {stay.country}
-                </p>
-              </div>
+          <article key={stay.id} className="stay-card">
+            <div className="pill-row">
+              <span className="pill">{stay.city}</span>
               <span className="chip">{stay.timezone}</span>
             </div>
+            <h2 className="stay-card-title">{stay.name}</h2>
+            <p className="muted" style={{ margin: 0 }}>
+              {stay.city}, {stay.country}
+            </p>
             <p style={{ margin: 0 }}>{stay.address}</p>
-            <p className="muted" style={{ margin: 0 }}>
-              Check in {formatDateTime(stay.checkInAt, stay.timezone)}
-            </p>
-            <p className="muted" style={{ margin: 0 }}>
-              Check out {formatDateTime(stay.checkOutAt, stay.timezone)}
-            </p>
+            <div className="stay-card-meta">
+              <p className="muted" style={{ margin: 0 }}>
+                Check in {formatDateTime(stay.checkInAt, stay.timezone)}
+              </p>
+              <p className="muted" style={{ margin: 0 }}>
+                Check out {formatDateTime(stay.checkOutAt, stay.timezone)}
+              </p>
+            </div>
             <div className="pill-row">
               {stay.mapUrl ? (
                 <a href={stay.mapUrl} className="button-secondary" target="_blank" rel="noreferrer">

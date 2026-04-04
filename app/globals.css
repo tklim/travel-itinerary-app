@@ -417,6 +417,33 @@ button {
   margin: 0;
 }
 
+.stay-list {
+  display: grid;
+  gap: 12px;
+}
+
+.stay-highlight,
+.stay-card {
+  padding: 16px 18px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+}
+
+.stay-card-title {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.stay-card-meta {
+  display: grid;
+  gap: 6px;
+}
+
 .answer-card strong,
 .timeline-title,
 .section-title,
@@ -955,6 +982,21 @@ button {
 
   .today-agenda-time strong {
     font-size: 0.92rem;
+  }
+
+  .stay-list {
+    gap: 10px;
+  }
+
+  .stay-highlight,
+  .stay-card {
+    padding: 14px;
+    gap: 10px;
+    border-radius: 18px;
+  }
+
+  .stay-card-title {
+    font-size: 1.02rem;
   }
 
   .button,

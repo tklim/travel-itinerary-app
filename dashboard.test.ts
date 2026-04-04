@@ -98,9 +98,13 @@ describe("traveler dashboard state", () => {
   it("builds answer cards and grouped schedule", () => {
     const now = parseLocalDateTime("2026-05-29T09:00", "Asia/Kuala_Lumpur");
     const state = buildTravelerState(snapshot, now);
+    const todayGroup = state.schedule.find((group) => group.label === "Today");
 
     expect(state.answerCards).toHaveLength(4);
     expect(state.schedule.length).toBeGreaterThan(3);
     expect(state.answerCards[0].title).toBe("Next flight");
+    expect(state.schedule[0].label).toBe("Wed 27 May");
+    expect(state.schedule[0].dateText).toBe("Wed 27 May");
+    expect(todayGroup?.dateText).toBe("Fri 29 May");
   });
 });

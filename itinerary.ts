@@ -5,7 +5,7 @@ import { addMinutes, compareAsc, isAfter } from "date-fns";
 
 import { db } from "@/db";
 import { newLogicalId, sampleEvents, sampleFlights, sampleStays, sampleTrip } from "@/sample-data";
-import { addLeadMinutes, formatDateLabel, formatDateTime, formatRelativeDayLabel, formatShortTime, zonedDayKey } from "@/time";
+import { addLeadMinutes, formatDateTime, formatRelativeDayLabel, formatShortDate, formatShortTime, zonedDayKey } from "@/time";
 import type { AnswerCard, DayTimelineGroup, DayTimelineItem, TonightStaySummary, TripSnapshot } from "@/types";
 
 const eventRequiredAt = (
@@ -314,7 +314,7 @@ export const buildSchedule = (snapshot: TripSnapshot, now = new Date()): DayTime
       grouped.set(dayKey, {
         dayKey,
         label: formatRelativeDayLabel(item.startAt, item.timezone, now),
-        dateText: formatDateLabel(item.startAt, item.timezone),
+        dateText: formatShortDate(item.startAt, item.timezone),
         timezone: item.timezone,
         items: []
       });
