@@ -2,7 +2,7 @@ import { logoutAction } from "@/actions";
 import { requireTraveler } from "@/auth";
 import { getPublishedSnapshot } from "@/itinerary";
 import { formatDuration, formatShortDate, formatShortTime } from "@/time";
-import { AppShell, CompactPageIntro, EmptyNotice, TravelerNav } from "@/ui";
+import { AppShell, CompactPageIntro, EmptyNotice, LogoutButton, TravelerNav } from "@/ui";
 
 export default async function FlightsPage() {
   await requireTraveler();
@@ -17,9 +17,7 @@ export default async function FlightsPage() {
       nav={<TravelerNav pathname="/flights" />}
       actions={
         <form action={logoutAction}>
-          <button className="button-secondary" type="submit">
-            Log out
-          </button>
+          <LogoutButton />
         </form>
       }
     >

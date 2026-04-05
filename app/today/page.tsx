@@ -2,7 +2,7 @@ import { logoutAction } from "@/actions";
 import { requireTraveler } from "@/auth";
 import { buildTravelerDashboard } from "@/itinerary";
 import { formatShortTime } from "@/time";
-import { AppShell, CompactPageIntro, TravelerNav } from "@/ui";
+import { AppShell, CompactPageIntro, LogoutButton, TravelerNav } from "@/ui";
 
 export default async function TodayPage() {
   await requireTraveler();
@@ -22,9 +22,7 @@ export default async function TodayPage() {
       nav={<TravelerNav pathname="/today" />}
       actions={
         <form action={logoutAction}>
-          <button className="button-secondary" type="submit">
-            Log out
-          </button>
+          <LogoutButton />
         </form>
       }
     >

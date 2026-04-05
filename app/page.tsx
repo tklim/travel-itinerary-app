@@ -4,7 +4,17 @@ import { logoutAction } from "@/actions";
 import { requireTraveler } from "@/auth";
 import { buildTravelerDashboard } from "@/itinerary";
 import { formatDateRange } from "@/time";
-import { AgendaGroups, AppShell, AnswerCards, CompactPageIntro, LastUpdated, StaySummaryCard, SummaryStats, TravelerNav } from "@/ui";
+import {
+  AgendaGroups,
+  AppShell,
+  AnswerCards,
+  CompactPageIntro,
+  LastUpdated,
+  LogoutButton,
+  StaySummaryCard,
+  SummaryStats,
+  TravelerNav
+} from "@/ui";
 
 export default async function HomePage() {
   await requireTraveler();
@@ -19,9 +29,7 @@ export default async function HomePage() {
       nav={<TravelerNav pathname="/" />}
       actions={
         <form action={logoutAction}>
-          <button className="button-secondary" type="submit">
-            Log out
-          </button>
+          <LogoutButton />
         </form>
       }
     >

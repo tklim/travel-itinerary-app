@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { getSessionRole } from "@/auth";
 import { loginAction } from "@/actions";
+import { ThemeToggle } from "@/theme-toggle";
 
 export default async function LoginPage({
   searchParams
@@ -28,7 +29,10 @@ export default async function LoginPage({
   return (
     <div className="auth-shell">
       <div className="panel auth-card stack">
-        <span className="eyebrow">Private family trip</span>
+        <div className="auth-card-top">
+          <span className="eyebrow">Private family trip</span>
+          <ThemeToggle />
+        </div>
         <div className="stack" style={{ gap: 8 }}>
           <h1 className="hero-title" style={{ fontSize: "2.6rem", maxWidth: "none" }}>
             Travel itinerary access

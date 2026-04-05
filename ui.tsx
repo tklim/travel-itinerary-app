@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import { ThemeToggle } from "@/theme-toggle";
 import type { AnswerCard, DayTimelineGroup, TonightStaySummary } from "@/types";
 import { formatDateTime, formatShortTime } from "@/time";
 
@@ -53,24 +54,50 @@ export function AppShell({
           <div className="brand-mark">
             <TravelMark />
           </div>
-          <div className="brand-copy stack" style={{ gap: 6 }}>
-            {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
-            <div>
-              <h1 style={{ margin: 0 }}>{title}</h1>
-              <p className="muted" style={{ margin: "6px 0 0" }}>
-                {subtitle}
-              </p>
+          <div className="brand-copy">
+            <div className="brand-top-row">
+              {eyebrow ? <span className="eyebrow shell-eyebrow">{eyebrow}</span> : null}
+              <div className="shell-actions">
+                <ThemeToggle />
+                {actions}
+              </div>
             </div>
-            <p className="muted" style={{ margin: 0, fontSize: "0.92rem" }}>
-              {tripName}
-            </p>
+            <div className="brand-heading-row">
+              <h1 style={{ margin: 0 }}>{title}</h1>
+            </div>
+            <p className="muted brand-subtitle">{subtitle}</p>
+            <p className="muted brand-trip-name">{tripName}</p>
           </div>
         </div>
-        {actions ? <div className="shell-actions">{actions}</div> : null}
       </header>
       {nav}
       <main className="stack spacious">{children}</main>
     </div>
+  );
+}
+
+export function LogoutButton() {
+  return (
+    <button className="button-secondary icon-button" type="submit" aria-label="Log out" title="Log out">
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="icon-button-glyph">
+        <path
+          d="M15.5 7.5V6.3A2.8 2.8 0 0 0 12.7 3.5H7.3a2.8 2.8 0 0 0-2.8 2.8v11.4a2.8 2.8 0 0 0 2.8 2.8h5.4a2.8 2.8 0 0 0 2.8-2.8v-1.2"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M10.4 12h9.1M16.4 8.2 20.2 12l-3.8 3.8"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </button>
   );
 }
 
@@ -244,7 +271,7 @@ export function ScheduleView({ groups }: { groups: DayTimelineGroup[] }) {
                   {formatShortTime(item.startAt, item.timezone)}
                   {item.endAt ? (
                     <div className="muted" style={{ marginTop: 6, fontWeight: 500 }}>
-                      to {formatShortTime(item.endAt, item.timezone)}
+                      to {formatShortTime(item.endAt, item.endTimezone ?? item.timezone)}
                     </div>
                   ) : null}
                 </div>
@@ -288,7 +315,9 @@ export function AgendaGroups({ groups }: { groups: DayTimelineGroup[] }) {
                   <div className="today-agenda-time">
                     <strong>{formatShortTime(item.startAt, item.timezone)}</strong>
                     {item.endAt ? (
-                      <span className="muted">to {formatShortTime(item.endAt, item.timezone)}</span>
+                      <span className="muted">
+                        to {formatShortTime(item.endAt, item.endTimezone ?? item.timezone)}
+                      </span>
                     ) : null}
                   </div>
                   <div className="today-agenda-content">

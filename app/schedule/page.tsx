@@ -2,7 +2,7 @@ import { logoutAction } from "@/actions";
 import { requireAdmin, requireTraveler } from "@/auth";
 import { AdminPanel } from "@/admin-panel";
 import { buildTravelerDashboard } from "@/itinerary";
-import { AgendaGroups, AppShell, CompactPageIntro, TravelerNav } from "@/ui";
+import { AgendaGroups, AppShell, CompactPageIntro, LogoutButton, TravelerNav } from "@/ui";
 
 export default async function SchedulePage({
   searchParams
@@ -28,9 +28,7 @@ export default async function SchedulePage({
       nav={<TravelerNav pathname="/schedule" />}
       actions={
         <form action={logoutAction}>
-          <button className="button-secondary" type="submit">
-            Log out
-          </button>
+          <LogoutButton />
         </form>
       }
     >

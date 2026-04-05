@@ -3,7 +3,7 @@ import Link from "next/link";
 import { logoutAction } from "@/actions";
 import { requireTraveler } from "@/auth";
 import { getPublishedSnapshot } from "@/itinerary";
-import { AppShell, CompactPageIntro, TravelerNav } from "@/ui";
+import { AppShell, CompactPageIntro, LogoutButton, TravelerNav } from "@/ui";
 import { formatDateTime } from "@/time";
 
 export default async function StayPage() {
@@ -23,9 +23,7 @@ export default async function StayPage() {
       nav={<TravelerNav pathname="/stay" />}
       actions={
         <form action={logoutAction}>
-          <button className="button-secondary" type="submit">
-            Log out
-          </button>
+          <LogoutButton />
         </form>
       }
     >
