@@ -53,6 +53,27 @@ export default async function LoginPage({
             Open itinerary
           </button>
         </form>
+        <div className="stack" style={{ gap: 10 }}>
+          <h2 className="section-title" style={{ fontSize: "1.1rem" }}>
+            Quick start
+          </h2>
+          <p className="muted" style={{ margin: 0 }}>
+            1. Tap the link.
+          </p>
+          <p className="muted" style={{ margin: 0 }}>
+            2. Type the family passcode.
+          </p>
+          <p className="muted" style={{ margin: 0 }}>
+            3. Tap <strong style={{ color: "inherit" }}>Open itinerary</strong>.
+          </p>
+          <p className="muted" style={{ margin: 0 }}>
+            Then tap <strong style={{ color: "inherit" }}>Home</strong>,{" "}
+            <strong style={{ color: "inherit" }}>Today</strong>,{" "}
+            <strong style={{ color: "inherit" }}>Schedule</strong>,{" "}
+            <strong style={{ color: "inherit" }}>Flights</strong>, or{" "}
+            <strong style={{ color: "inherit" }}>Stay</strong>.
+          </p>
+        </div>
       </div>
     </div>
   );

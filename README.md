@@ -7,6 +7,20 @@ A mobile-first private travel itinerary app for a small family or group trip. It
 - Which hotel are we staying at tonight?
 - What time do we need to wake up tomorrow?
 
+## Family quick start
+
+1. Open the app link.
+2. Enter the family passcode.
+3. Tap `Open itinerary`.
+
+Then use:
+
+- `Home` for the most important travel info
+- `Today` for today's plan
+- `Schedule` for the full trip plan
+- `Flights` for flight times
+- `Stay` for hotel details
+
 ## Stack
 
 - `Next.js` with the App Router
