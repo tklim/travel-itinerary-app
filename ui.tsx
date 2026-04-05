@@ -14,6 +14,29 @@ type ShellProps = {
   children: ReactNode;
 };
 
+function TravelMark() {
+  return (
+    <svg viewBox="0 0 48 48" aria-hidden="true" className="brand-mark-icon">
+      <path
+        d="M11 18.5c2.1-5.2 6.1-8.3 11.6-8.8 4.4-.4 7.9 1.2 11.2 4.6"
+        fill="none"
+        stroke="#fff4db"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray="2.4 4.2"
+      />
+      <circle cx="11.1" cy="18.6" r="3.1" fill="#fff4db" />
+      <circle cx="35.4" cy="15.1" r="4.1" fill="#0f6f68" />
+      <circle cx="35.4" cy="15.1" r="2.4" fill="#f9fbf8" />
+      <path
+        d="M18.8 29.8 32.1 26.4l-7.5 11.5-1.3-4.8-4.5-3.3Z"
+        fill="#ffffff"
+      />
+    </svg>
+  );
+}
+
 export function AppShell({
   title,
   subtitle,
@@ -27,7 +50,9 @@ export function AppShell({
     <div className="shell">
       <header className="topbar">
         <div className="brand">
-          <div className="brand-mark">T</div>
+          <div className="brand-mark">
+            <TravelMark />
+          </div>
           <div className="brand-copy stack" style={{ gap: 6 }}>
             {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
             <div>
