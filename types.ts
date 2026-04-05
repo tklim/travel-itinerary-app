@@ -37,6 +37,7 @@ export type DayTimelineItem = {
   title: string;
   category: string;
   timezone: string;
+  endTimezone?: string;
   startAt: Date;
   endAt?: Date | null;
   subtitle: string;

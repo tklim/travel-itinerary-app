@@ -99,6 +99,7 @@ describe("traveler dashboard state", () => {
     const now = parseLocalDateTime("2026-05-29T09:00", "Asia/Kuala_Lumpur");
     const state = buildTravelerState(snapshot, now);
     const todayGroup = state.schedule.find((group) => group.label === "Today");
+    const firstFlight = state.schedule.flatMap((group) => group.items).find((item) => item.kind === "flight");
 
     expect(state.answerCards).toHaveLength(4);
     expect(state.schedule.length).toBeGreaterThan(3);
@@ -106,5 +107,6 @@ describe("traveler dashboard state", () => {
     expect(state.schedule[0].label).toBe("Wed 27 May");
     expect(state.schedule[0].dateText).toBe("Wed 27 May");
     expect(todayGroup?.dateText).toBe("Fri 29 May");
+    expect(firstFlight?.endTimezone).toBe("Asia/Kuala_Lumpur");
   });
 });

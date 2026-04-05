@@ -282,6 +282,7 @@ const toFlightTimelineItem = (flight: Flight): DayTimelineItem => ({
   title: `${flight.originCode} to ${flight.destinationCode}`,
   category: "Flight",
   timezone: flight.originTimezone,
+  endTimezone: flight.destinationTimezone,
   startAt: flight.departAt,
   endAt: flight.arriveAt,
   subtitle: `${flight.airline} ${flight.flightNumber}`,
