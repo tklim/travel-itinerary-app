@@ -90,9 +90,6 @@ export default async function FlightsPage() {
                 {typeof flight.airportLeadMinutes === "number" ? (
                   <span className="chip">{flight.airportLeadMinutes} min airport</span>
                 ) : null}
-                {typeof flight.wakeLeadMinutes === "number" ? (
-                  <span className="chip">{flight.wakeLeadMinutes} min wake</span>
-                ) : null}
               </div>
 
               {flight.notes ? (
