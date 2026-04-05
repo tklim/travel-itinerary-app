@@ -97,6 +97,12 @@ button {
   font-weight: 700;
 }
 
+.brand-mark-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
 .brand h1,
 .brand h2,
 .brand p {
@@ -771,6 +777,11 @@ button {
     height: 42px;
     border-radius: 16px;
     font-size: 1.05rem;
+  }
+
+  .brand-mark-icon {
+    width: 24px;
+    height: 24px;
   }
 
   .brand-copy h1 {
