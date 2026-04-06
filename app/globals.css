@@ -557,6 +557,122 @@ button {
   gap: 6px;
 }
 
+.stay-reservation-card {
+  gap: 16px;
+}
+
+.stay-reservation-shell {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.stay-reservation-main {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.stay-reservation-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.stay-meta-stack {
+  display: grid;
+  gap: 8px;
+}
+
+.stay-meta-block {
+  display: grid;
+  gap: 2px;
+  padding: 9px 11px;
+  border-radius: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.stay-meta-block-compact {
+  padding: 8px 11px;
+}
+
+.stay-meta-block-note {
+  background: transparent;
+  border-style: dashed;
+}
+
+.stay-meta-value {
+  margin: 0;
+  line-height: 1.35;
+  white-space: pre-line;
+}
+
+.stay-meta-value-compact {
+  font-size: 0.92rem;
+}
+
+.stay-reservation-dates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.stay-date-card {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 2px;
+  padding: 10px 10px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  text-align: center;
+}
+
+.stay-date-label {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stay-date-number {
+  font-size: clamp(1.65rem, 3vw, 2.15rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.stay-date-month {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.stay-date-weekday {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.stay-date-time-row {
+  margin-top: 2px;
+  padding-top: 6px;
+  width: 100%;
+  border-top: 1px dashed var(--line);
+}
+
+.stay-date-time {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.stay-card-footer {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .answer-card strong,
 .timeline-title,
 .section-title,
@@ -1177,6 +1293,41 @@ button {
 
   .stay-card-title {
     font-size: 1.02rem;
+  }
+
+  .stay-reservation-shell {
+    gap: 12px;
+  }
+
+  .stay-reservation-main {
+    gap: 10px;
+  }
+
+  .stay-meta-stack {
+    gap: 8px;
+  }
+
+  .stay-meta-block {
+    padding: 8px 10px;
+    border-radius: 14px;
+  }
+
+  .stay-reservation-dates {
+    gap: 8px;
+  }
+
+  .stay-date-card {
+    padding: 9px 8px;
+    border-radius: 16px;
+  }
+
+  .stay-date-number {
+    font-size: 1.55rem;
+  }
+
+  .stay-date-weekday,
+  .stay-date-time {
+    font-size: 0.78rem;
   }
 
   .button,
