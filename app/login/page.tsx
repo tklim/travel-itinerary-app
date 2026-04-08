@@ -4,6 +4,8 @@ import { getSessionRole } from "@/auth";
 import { loginAction } from "@/actions";
 import { ThemeToggle } from "@/theme-toggle";
 
+import { PasscodeInput } from "./passcode-input";
+
 export default async function LoginPage({
   searchParams
 }: {
@@ -44,13 +46,7 @@ export default async function LoginPage({
         <form action={loginAction} className="form-stack">
           <label className="label">
             Passcode
-            <input
-              className="input"
-              name="passcode"
-              type="password"
-              placeholder="Enter trip passcode"
-              autoFocus
-            />
+            <PasscodeInput />
           </label>
           {message ? <p className="error-text">{message}</p> : null}
           <button className="button" type="submit">
