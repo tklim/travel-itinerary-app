@@ -90,11 +90,7 @@ export default async function FlightsPage() {
                 ) : null}
               </div>
 
-              {flight.notes ? (
-                <p className="muted flight-notes">
-                  {flight.notes}
-                </p>
-              ) : null}
+              {flight.notes ? <p className="flight-notes">{flight.notes}</p> : null}
             </article>
           ))}
         </section>

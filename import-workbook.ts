@@ -7,7 +7,7 @@ import { parseLocalDateTime } from "@/time";
 const text = (value: unknown) => String(value ?? "").trim();
 const optionalText = (value: unknown) => {
   const parsed = text(value);
-  return parsed.length > 0 ? parsed : undefined;
+  return parsed.length > 0 ? parsed.replace(/\r\n?/g, "\n") : undefined;
 };
 
 const numberFromCell = (value: unknown) => {
