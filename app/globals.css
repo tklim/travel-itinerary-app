@@ -458,6 +458,9 @@ button {
   margin: 0;
   font-size: 0.9rem;
   line-height: 1.45;
+  color: var(--muted);
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .today-card-list {
@@ -523,6 +526,7 @@ button {
 .today-agenda-content {
   display: grid;
   gap: 6px;
+  min-width: 0;
 }
 
 .today-agenda-content p,
@@ -840,6 +844,18 @@ button {
   margin-top: 6px;
   color: var(--muted);
   line-height: 1.55;
+}
+
+.timeline-item > div:last-child {
+  min-width: 0;
+}
+
+.timeline-note {
+  margin-top: 6px;
+  color: var(--muted);
+  line-height: 1.55;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .day-block {

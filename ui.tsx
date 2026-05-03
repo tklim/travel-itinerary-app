@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import React, { type ReactNode } from "react";
 
 import { ThemeToggle } from "@/theme-toggle";
 import type { AnswerCard, DayTimelineGroup, TonightStaySummary } from "@/types";
@@ -282,7 +282,7 @@ export function ScheduleView({ groups }: { groups: DayTimelineGroup[] }) {
                   </div>
                   <h3 className="timeline-title">{item.title}</h3>
                   <p>{item.subtitle}</p>
-                  {item.detail ? <p>{item.detail}</p> : null}
+                  {item.detail ? <p className="timeline-note">{item.detail}</p> : null}
                 </div>
               </div>
             ))}
@@ -327,7 +327,7 @@ export function AgendaGroups({ groups }: { groups: DayTimelineGroup[] }) {
                     </div>
                     <h3 className="timeline-title">{item.title}</h3>
                     <p>{item.subtitle}</p>
-                    {item.detail ? <p className="muted">{item.detail}</p> : null}
+                    {item.detail ? <p className="timeline-note">{item.detail}</p> : null}
                   </div>
                 </article>
               ))}
